@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle="left"><ion-icon name="menu"></ion-icon></button>
+    <ion-title>Insulin Rechner</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of itemService.items; let index=index">
+      <ion-item (click)="itemDetails(item)">
+        <h2>{{item.name}}</h2>
+        <p>Gewicht: {{item.breadUnits}}</p>
+        <ion-note>{{item.dose | number:'.0-0' }} Einheiten Insulin</ion-note>
+      </ion-item>
+      <ion-item-options>
+        <button danger default (click)="deleteItem(index)">
+         <ion-icon name="trash"></ion-icon> Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <button (click)="addItem()" fab fab-center primary>
+    <ion-icon name="add" is-active="false"></ion-icon>
+  </button>
+  <test></test>
+</ion-content>
+
+<ion-footer no-shadow>
+  <ion-toolbar no-border>
+    <ion-segment [(ngModel)]="selectedFactor" >
+      <ion-segment-button *ngFor="let factor of itemService.factors, let index=index" 
+                           value="{{factor.name}}" (ionSelect)="chooseFactor($event, index)">
+                           {{factor.name}}
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-toolbar no-border>
+      <insulin-result></insulin-result>
+  </ion-toolbar>
+</ion-footer>

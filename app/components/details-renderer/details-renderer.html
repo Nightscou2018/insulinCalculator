@@ -1,0 +1,25 @@
+<ion-item>
+  <ion-label floating>Name:</ion-label>
+  <ion-input type="text" [(ngModel)]="item.name"></ion-input>
+</ion-item>
+<ion-item>
+  <button clear large item-left (click)="item.alterWeight(-10)">
+    <ion-icon name="remove-circle" item-left></ion-icon>
+  </button> {{ item.weight | number:'.0-0' }}
+  <ion-note>Gramm</ion-note>
+  <button clear large item-right (click)="item.alterWeight(10)">
+    <ion-icon name="add-circle"></ion-icon>
+  </button>
+</ion-item>
+<ion-item>
+  <button clear large item-left (click)="item.alterBreadUnits(-1)">
+    <ion-icon name="remove-circle" item-left></ion-icon>
+  </button> {{ item.breadUnits | number:'.1-1'}}
+  <ion-note>BE</ion-note>
+  <button clear large item-right (click)="item.alterBreadUnits(1)">
+    <ion-icon name="add-circle"></ion-icon>
+  </button>
+</ion-item>
+<ion-item>
+  {{ item.dose | number:'.1-1'}}
+</ion-item>
