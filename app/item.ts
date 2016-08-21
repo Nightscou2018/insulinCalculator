@@ -5,8 +5,12 @@ export class Item {
     public dose: number;
     public factor = 1;
     public converter = 12;
+    public id: number;
 
-    constructor(){
+    constructor(weight = 0, breadUnits = 0, name?, id?){
+        this.weight = weight;
+        this.breadUnits = breadUnits;
+        this.name = name ? name : '';
         this.onChange();
     }
     
@@ -17,6 +21,8 @@ export class Item {
             this.weight = this.breadUnits * 12;
         }
         this.dose = this.breadUnits * this.factor;
+        
+        console.log('newItem hat: ', this.dose);
     }
 
     public alterWeight(amount:number){

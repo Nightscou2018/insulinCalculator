@@ -4,24 +4,40 @@ import {Item} from '../../item';
 
 @Component({
   selector: 'insulin-result', // Attribute selector
-  template: "<h2>Insulindosis gesamt: {{ result | number:'.0-0' }}</h2>",
+  template: `
+    <div class="insulin-result">
+      <span class="result"><ion-icon name="water" large></ion-icon> Dosis für Mahlzeit: {{ result | number:'.0-0' }}</span>   
+    </div>
+    `,
+  styles: [`
+      .insulin-result{
+        font-weight: bold;
+        font-size: large;
+        text-align: right;
+        float: right;
+      }
+    `]
 })
 export class InsulinResult implements OnInit {
   result: number;
+  @Input() isQuick: boolean;
 
   constructor(private itemService: ItemService) {
     this.result = 0;
   }
 
   ngOnInit() {
+
     this.itemService.itemsChanged.subscribe(
       data => {
         this.result = 0;
-        for (let item of data.items) {
-          console.log('event emitted with', data.items);
-          this.result += item.dose;
-        }
+        if (!this.isQuick) {
+          for (var i = 1; i < data.items.length; i++) {
+            this.result += data.items[i].dose;
+          }
+        } else { this.result += data.items[0].dose; }
       });
   }
 }
+
 

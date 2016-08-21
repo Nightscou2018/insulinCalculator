@@ -7,9 +7,9 @@
 <ion-header>
 
   <ion-navbar>
-    <button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+    <ion-buttons start>
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-buttons>
     <ion-title>editFactors</ion-title>
     <ion-buttons end>
     <button royal (click)="addFactor()">
@@ -28,8 +28,8 @@
         <button item-right outline (click)="editFactorName(index)">edit</button>
       </ion-item-divider>
     <ion-item>
-      <ion-label>{{ factor.value | tenth }}</ion-label>
-      <ion-range min="10" max="40" step="1" snaps="true" [(ngModel)]="factor.value" secondary>
+      <ion-label>{{ factor.value | tenth | number:'.1-1' }}</ion-label>
+      <ion-range min="10" max="40" step="1" snaps="true" [(ngModel)]="factor.value" primary>
         <ion-label range-left>1</ion-label>
         <ion-label range-right>4</ion-label>
       </ion-range>

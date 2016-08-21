@@ -1,25 +1,44 @@
-<ion-item>
-  <ion-label floating>Name:</ion-label>
-  <ion-input type="text" [(ngModel)]="item.name"></ion-input>
-</ion-item>
-<ion-item>
-  <button clear large item-left (click)="item.alterWeight(-10)">
-    <ion-icon name="remove-circle" item-left></ion-icon>
-  </button> {{ item.weight | number:'.0-0' }}
-  <ion-note>Gramm</ion-note>
-  <button clear large item-right (click)="item.alterWeight(10)">
-    <ion-icon name="add-circle"></ion-icon>
-  </button>
-</ion-item>
-<ion-item>
-  <button clear large item-left (click)="item.alterBreadUnits(-1)">
-    <ion-icon name="remove-circle" item-left></ion-icon>
-  </button> {{ item.breadUnits | number:'.1-1'}}
-  <ion-note>BE</ion-note>
-  <button clear large item-right (click)="item.alterBreadUnits(1)">
-    <ion-icon name="add-circle"></ion-icon>
-  </button>
-</ion-item>
-<ion-item>
-  {{ item.dose | number:'.1-1'}}
-</ion-item>
+<ion-card>
+  <ion-card-header>
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input type="text" placeholder="Name des Bestandteils" [(ngModel)]="item.name"></ion-input>
+    </ion-item>
+  </ion-card-header>
+  <ion-item-divider stacked>
+    <ion-icon name="flame" class="divider-icon"></ion-icon>Kohlenhydrate:</ion-item-divider>
+  <ion-row no-padding center>
+    <ion-col width-33 text-left>
+      <button clear large (click)="itemService.alterItemWeight(item, -5)">
+        <ion-icon name="remove-circle" item-left></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col text-center width-33>
+      {{ item.weight | number:'.0-0' }}
+      <ion-note>g</ion-note>
+    </ion-col>
+    <ion-col text-right width-33>
+      <button clear large (click)="itemService.alterItemWeight(item, 5)">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+  <ion-item-divider>
+    <ion-icon name="speedometer" class="divider-icon"></ion-icon>Broteinheiten</ion-item-divider>
+  <ion-row no-padding center>
+    <ion-col width-33 text-left>
+      <button clear large (click)="itemService.alterItemBreadUnits(item, -1)">
+        <ion-icon name="remove-circle" item-left></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col text-center width-33>
+      {{ item.breadUnits | number:'.1-1'}}
+      <ion-note>BE</ion-note>
+    </ion-col>
+    <ion-col text-right width-33>
+      <button clear large (click)="itemService.alterItemBreadUnits(item, 1)">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-card>

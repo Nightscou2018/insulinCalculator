@@ -7,16 +7,22 @@
 <ion-header>
 
   <ion-toolbar>
-    <ion-title>create</ion-title>
+    <ion-buttons start>
+      <button (click)="dismiss()">
+        <span primary showWhen="ios">Zurück</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Bestandteil hinzufügen</ion-title>
   </ion-toolbar>
 
 </ion-header>
 
 
 <ion-content padding>
-<details-renderer [item]="item"></details-renderer>
+  <details-renderer [item]="item"></details-renderer>
   <ion-item>
-    <button  secondary large item-left (click)="dismiss(false)">Zurück</button>
-    <button  primary large item-right (click)="dismiss(true)">Hinzufügen</button>
+    <button secondary large item-left (click)="dismiss(false)">Zurück</button>
+    <button primary large item-right (click)="dismiss(true)">Hinzufügen</button>
   </ion-item>
 </ion-content>

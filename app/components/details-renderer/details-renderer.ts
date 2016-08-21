@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ItemService } from '../../providers/item-service/item-service';
 import { Item } from '../../item';
 
 /*
@@ -9,8 +10,18 @@ import { Item } from '../../item';
 */
 @Component({
   selector: 'details-renderer',
-  templateUrl: 'build/components/details-renderer/details-renderer.html'
+  templateUrl: 'build/components/details-renderer/details-renderer.html',
+  styles: [`
+    .divider-icon {
+      margin-right: .7rem;
+    }
+  `]
 })
 export class DetailsRenderer {
   @Input() item:Item;
+  @Input() isQuick: boolean;
+
+  constructor(public itemService: ItemService){
+    
+  }
 }
