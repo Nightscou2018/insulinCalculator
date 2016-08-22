@@ -13,8 +13,7 @@ import {Item} from '../../item';
       .insulin-result{
         font-weight: bold;
         font-size: large;
-        text-align: right;
-        float: right;
+        text-align: center;
       }
     `]
 })
@@ -27,9 +26,9 @@ export class InsulinResult implements OnInit {
   }
 
   ngOnInit() {
-
     this.itemService.itemsChanged.subscribe(
       data => {
+        console.log("RESULT RECALCULATE, Factor is …", this.itemService.getSelectedFactor())
         this.result = 0;
         if (!this.isQuick) {
           for (var i = 1; i < data.items.length; i++) {

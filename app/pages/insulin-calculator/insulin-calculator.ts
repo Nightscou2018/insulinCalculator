@@ -16,7 +16,7 @@ import { Tenth } from '../../pipes/tenth';
   pipes: [Tenth],
 })
 export class InsulinCalculatorPage implements OnInit {
-  public selectedFactor;
+  public selectedFactor = 0;
   public selectedText;
   public currentFactor: number;
 
@@ -26,12 +26,10 @@ export class InsulinCalculatorPage implements OnInit {
     public itemService: ItemService,
     public itemSaveService: ItemSavedService,
     public modalCtrl: ModalController
-    ) {
-  }
+    ) { }
 
   ngOnInit(){
-    this.selectedFactor = 0;
-
+    //this.selectedFactor = this.itemService.selectedFactorIndex;
   }
 
   factorChanged(index: number){
@@ -39,9 +37,10 @@ export class InsulinCalculatorPage implements OnInit {
     this.itemService.setSelectedFactor(index);
   }
 
-  ionViewWillEnter(){
+  ionViewLoaded(){
     this.factorChanged(this.itemService.selectedFactorIndex);
     this.selectedFactor = this.itemService.selectedFactorIndex;
+    console.log("ENTERED PAGE", this.selectedFactor, this.itemService)
   }
 
   openPage(target) {
@@ -52,15 +51,10 @@ export class InsulinCalculatorPage implements OnInit {
     let modal = this.modalCtrl.create(CreateItemPage);
     modal.onDidDismiss(item => {
       if (item) {
-        this.itemService.items[0] = item;
-        this.itemService.addToItems();
+        this.itemService.addNewItem(item);
       }
     });
     modal.present();
-  }
-
-  addItem() {
-    this.itemService.addToItems();
   }
 
   resetNewItem() {

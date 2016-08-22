@@ -21,8 +21,7 @@
 
 <ion-content padding>
   <details-renderer [item]="item"></details-renderer>
-  <ion-item>
-    <button secondary large item-left (click)="dismiss(false)">Zurück</button>
-    <button primary large item-right (click)="dismiss(true)">Hinzufügen</button>
-  </ion-item>
+  <ion-row>
+    <button primary full (click)="dismiss(true)">Hinzufügen</button>
+  </ion-row>
 </ion-content>

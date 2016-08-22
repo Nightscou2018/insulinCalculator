@@ -17,8 +17,6 @@ export class CreateItemPage implements OnInit {
 
   constructor(private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController) {
     this.item = new Item();
-    this.item.weight = 120;
-    this.item.factor = 3;
     this.item.onChange(true, false);
   }
 

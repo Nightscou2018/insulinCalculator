@@ -21,7 +21,7 @@
         <h2>{{item.name}}</h2>
         <p>Gewicht: {{item.breadUnits}}</p>
         <ion-note>{{item.dose | number:'.0-0' }} Einheiten Insulin</ion-note>
-        <button item-right primary clear><ion-icon name="attach"></ion-icon>übernehmen</button>
+        <button item-right primary outline (click)="adoptItem(item)" ><ion-icon name="attach"></ion-icon>übernehmen</button>
       </ion-item>
       <ion-item-options>
         <button danger default (click)="itemSaveService.deleteItem(index)">

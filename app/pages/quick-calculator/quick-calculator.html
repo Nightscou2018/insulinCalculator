@@ -14,26 +14,26 @@
 
 
 <ion-content padding>
-    <details-renderer [item]="itemService.items[0]"></details-renderer>
-    <ion-row no-padding>
-      <ion-col width-50>
-        <button outline small danger (click)="resetNewItem()"><ion-icon name="backspace"></ion-icon>Reset</button>
-      </ion-col>
-      <ion-col width-50 text-right>
-        <button outline small secondary (click)="saveItem(0)"><ion-icon name="bookmark"></ion-icon>Speichern</button>
-      </ion-col>
-    </ion-row>
+
+  <details-renderer [item]="itemService.items[0]"></details-renderer>
+  
+  <ion-row margin-vertical>
+    <ion-col width-50>
+      <button outline small danger (click)="resetNewItem()"><ion-icon name="backspace"></ion-icon>Reset</button>
+    </ion-col>
+    <ion-col width-50 text-right>
+      <button outline small secondary (click)="saveItem(0)"><ion-icon name="bookmark"></ion-icon>Speichern</button>
+    </ion-col>
+  </ion-row>
+  <insulin-result [isQuick]=true></insulin-result>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar no-border>
-    <ion-segment [(ngModel)]="selectedFactor" (ngModelChange)="factorChanged($event)">
-      <ion-segment-button *ngFor="let factor of itemService.factors, let index=index" value="{{index}}">
+    <ion-segment [(ngModel)]="itemService.selectedFactorIndex" (ionSelect)="factorChanged($event)">
+      <ion-segment-button *ngFor="let factor of itemService.factors, let index=index" [value]="index">
         {{factor.name}}
       </ion-segment-button>
     </ion-segment>
-  </ion-toolbar>
-  <ion-toolbar no-border>
-    <insulin-result [isQuick]=true></insulin-result>
   </ion-toolbar>
 </ion-footer>

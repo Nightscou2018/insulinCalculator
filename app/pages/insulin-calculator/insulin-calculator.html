@@ -32,7 +32,7 @@
         <ion-icon item-left large name="ice-cream"></ion-icon>
         <h2 >{{item.name}}</h2>
         <p>Gewicht: {{item.breadUnits | number:'.0-0' }}</p>
-        <h3>{{item.dose | number:'.0-0' }} Einheiten Insulin</h3>
+        <h3>{{item.dose | number:'.1-1' }} Einheiten Insulin</h3>
         <button danger clear item-right (click)="deleteItem(index)"><ion-icon name="trash"></ion-icon></button>
       </ion-item>
       <ion-item-options>
@@ -49,10 +49,10 @@
 
 <ion-footer no-shadow>
   <ion-toolbar no-border>
-    <ion-segment [(ngModel)]="selectedFactor" (ngModelChange)="factorChanged($event)">
-      <ion-segment-button *ngFor="let factor of itemService.factors, let index=index" 
-      value="{{index}}" >
-        {{factor.name}}
+    <ion-segment [(ngModel)]="itemService.selectedFactorIndex" (ngModelChange)="factorChanged($event)">
+      <ion-segment-button *ngFor="let factor of itemService.factors; let index=index" 
+      [value]="index" >
+      {{ factor.name }}
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>

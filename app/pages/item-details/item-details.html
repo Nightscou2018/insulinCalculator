@@ -15,8 +15,12 @@
 
 <ion-content padding>
   <details-renderer [item]="item"></details-renderer>
-  <ion-item>
-    <button primary item-right large (click)="saveItem()">Speichern</button>
-    <button danger item-left large (click)="cancelEdit()">Abbrechen</button>
-  </ion-item>
+  <ion-row>
+    <ion-col width-50>
+      <button danger item-left large outline (click)="cancelEdit()">Abbrechen</button>
+    </ion-col>
+    <ion-col width-50 text-right>
+      <button primary item-right large outline (click)="saveItem()">Speichern</button>
+    </ion-col>
+  </ion-row>
 </ion-content>

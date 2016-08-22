@@ -7,13 +7,12 @@ import {ItemDetailsPage} from '../../pages/item-details/item-details';
 export class ItemService {
   public items: Array<Item>;
   public factors: Array<Factor>;
-  public selectedFactorIndex: number;
+  public selectedFactorIndex = 0;
   public itemsChanged = new EventEmitter<{ items: Item[], factor: number }>();
 
   constructor() {
     this.items = [new Item(0,0)];
     this.factors = [new Factor('morgens', 24), new Factor('mittags', 34)];
-    this.selectedFactorIndex = 0;
   }
 
   getNewItem(weight: number, breadUnits: number, name?: string) {
@@ -21,11 +20,18 @@ export class ItemService {
     this.onChange();
     return this.items[0];
   }
-
-  addToItems(){
-    this.items.unshift(new Item(0,0));
-    this.itemsChanged.emit({ items: this.items, factor: this.factors[this.selectedFactorIndex].value });
+  
+  addNewItem(item){
+    this.items.push(item);
+    this.items[0] = new Item(0,0)
+    this.recalculateItems();
   }
+
+ /* addToItems(){
+    this.items.unshift(new Item(0,0));
+    this.recalculateItems();
+    this.itemsChanged.emit({ items: this.items, factor: this.factors[this.selectedFactorIndex].value });
+  }*/
 
   /*genderateItem(name: string, weight: number): void {
     let item: Item = new Item();
@@ -56,7 +62,11 @@ export class ItemService {
     this.recalculateItems();
   }
 
-  private recalculateItems() {
+  getSelectedFactor(){
+    return this.factors[this.selectedFactorIndex];
+  }
+
+  recalculateItems() {
     for (var item of this.items) {
       item.dose = this.factors[this.selectedFactorIndex].value / 10 * item.breadUnits;
     }
