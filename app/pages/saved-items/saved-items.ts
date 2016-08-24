@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 
-import {ItemService} from '../../providers/item-service/item-service';
-import {Item} from '../../item';
+import { ItemService } from '../../providers/item-service/item-service';
+import { Item } from '../../item';
 import { ItemSavedService } from '../../providers/item-saved-service/item-saved-service';
 
 

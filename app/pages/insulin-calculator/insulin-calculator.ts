@@ -74,36 +74,6 @@ export class InsulinCalculatorPage implements OnInit {
   }
 
   saveItem(index: number) {
-    let alert = this.alertCtrl.create({
-      title: 'Name für gespeicherten Eintrag',
-      inputs: [
-        {
-          name: 'name',
-          placeholder: 'z.B. Pizza'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Zurück',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Speichern',
-          handler: data => {
-            if (data.name.length > 0) {
-              data.name + '';
-              this.itemService.setItemName(index, data.name);
-              this.itemSaveService.saveItem(this.itemService.items[index]);
-            } else {
-              return false;
-            }
-          }
-        }
-      ]
-    });
-    alert.present();
+    this.itemSaveService.saveItem(index);
   }
 }

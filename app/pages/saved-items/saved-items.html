@@ -14,6 +14,7 @@
 
 
 <ion-content padding>
+    <ion-item *ngIf="isLoading" text-center><h2>Loading ...</h2></ion-item>
     <ion-list>
     <ion-item-sliding *ngFor="let item of itemSaveService.savedItems | slice:1; let index=index">
       <ion-item>

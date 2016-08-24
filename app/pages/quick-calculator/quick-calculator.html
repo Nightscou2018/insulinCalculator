@@ -9,6 +9,13 @@
   <ion-navbar>
     <ion-title>QuickCalculator</ion-title>
   </ion-navbar>
+  <ion-toolbar no-border>
+    <ion-segment [(ngModel)]="itemService.selectedFactorIndex" (ionSelect)="factorChanged($event)">
+      <ion-segment-button *ngFor="let factor of itemService.factors, let index=index" [value]="index">
+        {{factor.name}}
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 
 </ion-header>
 
@@ -16,7 +23,7 @@
 <ion-content padding>
 
   <details-renderer [item]="itemService.items[0]"></details-renderer>
-  
+
   <ion-row margin-vertical>
     <ion-col width-50>
       <button outline small danger (click)="resetNewItem()"><ion-icon name="backspace"></ion-icon>Reset</button>
@@ -29,11 +36,4 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar no-border>
-    <ion-segment [(ngModel)]="itemService.selectedFactorIndex" (ionSelect)="factorChanged($event)">
-      <ion-segment-button *ngFor="let factor of itemService.factors, let index=index" [value]="index">
-        {{factor.name}}
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
 </ion-footer>

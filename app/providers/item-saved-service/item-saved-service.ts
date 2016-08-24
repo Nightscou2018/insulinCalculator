@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToastController, SqlStorage, Storage } from 'ionic-angular';
+import { ToastController, AlertController, SqlStorage, Storage } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { Item } from '../../item';
 import { ItemService } from '../item-service/item-service';
@@ -11,8 +11,9 @@ export class ItemSavedService {
   public database: Storage;
   savedFactors = Array<Factor>();
   savedItems = Array<Item>();
+  isLoading: boolean;
 
-  constructor(public itemService: ItemService, public toastCtrl: ToastController) {
+  constructor(public itemService: ItemService, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.savedFactors = [];
     this.database = new Storage(SqlStorage);
     this.initDatabase();
@@ -34,6 +35,8 @@ export class ItemSavedService {
   }
 
   refresh() {
+    this.isLoading = true;
+    this.savedItems = [];
     console.log('trying to refresh!')
     this.database.query("SELECT * FROM items;", []).then((data) => {
       console.log(data);
@@ -56,13 +59,14 @@ export class ItemSavedService {
     }, (error) => {
       console.error('Unable to get factors from database', error);
     });
+    this.isLoading = false;
   }
 
   getFactors() {
     return Observable.from(this.savedFactors);
   }
 
-  saveItem(item: Item) {
+  private insertItem(item: Item) {
     let sql = "INSERT INTO items (name, weight, breadUnits) VALUES (?, ?, ?)";
     this.database.query(sql, [item.name, item.weight, item.breadUnits]).then((data) => {
       this.savedItems.push(item);
@@ -83,7 +87,7 @@ export class ItemSavedService {
     let toast = this.toastCtrl.create({
       message: message,
       duration: 3000,
-      position: 'top'
+      position: 'middle'
     });
 
     toast.onDidDismiss(() => {
@@ -91,6 +95,42 @@ export class ItemSavedService {
     });
 
     toast.present();
+  };
+
+  saveItem(index: number) {
+    let item = this.itemService.items[index];
+    let alert = this.alertCtrl.create({
+      title: 'Name für gespeicherten Eintrag',
+      inputs: [
+        {
+          name: 'name',
+          value: item.name || '',
+          placeholder: 'z.B. Pizza'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Zurück',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Speichern',
+          handler: data => {
+            if (data.name.length > 0) {
+              data.name + '';
+              this.itemService.setItemName(index, data.name);
+              this.insertItem(this.itemService.items[index]);
+            } else {
+              return false;
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }

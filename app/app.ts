@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform, ionicBootstrap } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import { InsulinCalculatorPage } from './pages/insulin-calculator/insulin-calculator';
 import { QuickCalculatorPage } from './pages/quick-calculator/quick-calculator';
@@ -14,6 +14,7 @@ import { FactorService  } from './providers/factor-service/factor-service';
   templateUrl: 'build/app.html'
 })
 export class MyApp {
+  @ViewChild(Nav) nav: Nav;
   rootPage: any = InsulinCalculatorPage;
   pages: Array<{ title: string, component: any, icon: string }>;
 
@@ -34,6 +35,10 @@ export class MyApp {
 
 
   };
+
+  onPageChange(page){
+    this.nav.setRoot(page.component);
+  }
 }
 
 ionicBootstrap(MyApp, [ItemService, ItemSavedService, FactorService]);

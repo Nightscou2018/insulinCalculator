@@ -31,7 +31,7 @@ export class QuickCalculatorPage {
   }
 
   saveItem(index: number){
-    this.itemSavedService.saveItem(this.itemService.items[0]);
+    this.itemSavedService.saveItem(index);
   }
 
   factorChanged(index: number){
